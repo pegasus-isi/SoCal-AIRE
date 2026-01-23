@@ -288,111 +288,101 @@
             perspective: 1000px;
         }
 
-        /* --- EQUALIZER LAYOUT FOR PRINCIPLES --- */
-        .principles-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2.5rem;
-        }
+        /* --- UPDATED SMALLER GUIDELINE CARDS --- */
+.principles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem; /* Tighter spacing for smaller cards */
+    max-width: 1100px;
+    margin: 0 auto;
+}
 
-        .principles-container .flip-card {
-            flex: 1 1 320px;
-            max-width: 500px;
-            /* Increased max-width to let text breathe */
-        }
+/* Base card size reduced from 340px to 220px */
+.flip-card {
+    background-color: transparent;
+    height: 220px; 
+    cursor: pointer;
+    width: 100%;
+    flex: 1 1 240px; 
+    max-width: 300px;
+}
 
-        .flip-card {
-            background-color: transparent;
-            height: 340px;
-            cursor: pointer;
-            width: 100%;
-        }
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
 
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-        }
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
 
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 1.5rem; /* Reduced padding for smaller footprint */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.flip-card-front {
+    background: var(--bg-card-front);
+    border: 1px solid rgba(128, 128, 128, 0.1);
+}
 
-        .flip-card-front {
-            background: var(--bg-card-front);
-            border: 1px solid rgba(128, 128, 128, 0.1);
-        }
+/* Icon size reduced from 3.5rem to 2.2rem */
+.flip-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--brand-cyan), var(--brand-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        [data-theme="light"] .flip-card-front {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
+.flip-card-front h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
 
-        .flip-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--brand-cyan), var(--brand-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.hint {
+    margin-top: 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--brand-cyan);
+    opacity: 0.6;
+}
 
-        .flip-card-front h3,
-        .flip-card-front h4 {
-            font-size: 1.4rem;
-            color: var(--text-primary);
-        }
+.flip-card-back {
+    background: var(--gradient-sunset);
+    color: white;
+    transform: rotateY(180deg);
+}
 
-        .hint {
-            margin-top: auto;
-            font-size: 0.8rem;
-            color: var(--brand-cyan);
-            opacity: 0.8;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+.flip-card-back h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 4px;
+}
 
-        .flip-card-back {
-            background: var(--gradient-sunset);
-            color: white;
-            transform: rotateY(180deg);
-            padding: 2rem;
-        }
-
-        .flip-card-back h3,
-        .flip-card-back h4 {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .flip-card-back p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.95);
-        }
+.flip-card-back p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.95);
+}
 
         /* --- AUDIENCE & ORGANIZATION --- */
         .audience-intro {
@@ -1091,7 +1081,7 @@
     </section>
 
     <section id="events">
-    <h2 class="section-title fade-in-up">Events</h2>
+    <h2 class="section-title fade-in-up">Related Events</h2>
     
     <h3 class="fade-in-up" style="text-align: center; margin-bottom: 2rem; color: var(--brand-cyan);">Upcoming</h3>
     <div id="upcoming-events-container" class="events-stack" style="display: flex; flex-direction: column; gap: 2rem; max-width: 1000px; margin: 0 auto 4rem;">
