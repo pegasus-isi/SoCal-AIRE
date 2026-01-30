@@ -1081,35 +1081,48 @@
     </section>
 
 <section id="events">
-        <h2 class="section-title fade-in-up">Events & Milestones</h2>
+    <h2 class="section-title fade-in-up">Events & Milestones</h2>
+    
+    <div class="events-stack" style="display: flex; flex-direction: column; gap: 3rem; max-width: 1100px; margin: 0 auto;">
         
-        <div class="events-stack" style="display: flex; flex-direction: column; gap: 2.5rem; max-width: 1000px; margin: 0 auto;">
+        <div class="foundational-hero fade-in-up" style="display: flex; flex-wrap: wrap; background: var(--bg-card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(0, 181, 226, 0.3); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);">
             
-            <div class="event-card fade-in-up" style="border: 2px solid var(--brand-cyan); background: linear-gradient(145deg, rgba(0, 181, 226, 0.1), rgba(2, 6, 23, 0.4)); width: 100%;">
-                <div class="event-date" style="background: var(--brand-cyan); min-width: 180px;">
-                    <span class="day">22</span>
-                    <span class="month">JAN</span>
-                </div>
-                <div class="event-content">
-                    <div class="event-tag" style="background: var(--brand-cyan); color: #000; font-weight: 800;">
-                        <i class="fas fa-star"></i> THE FOUNDATIONAL LAUNCH
-                    </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">NSF ACCESS Regional AI Workshop</h3>
-                    <div class="event-details" style="margin-bottom: 10px; color: var(--text-secondary);">
-                        <span><i class="fas fa-landmark"></i> USC Ginsburg Hall</span>
-                    </div>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                        Our inaugural event convened over 100 regional experts to establish the SoCal-AIRE collaborative framework.
-                    </p>
-                    <a href="https://www.isi.edu/special-events/socalai-2026/" target="_blank" class="event-btn">View Highlights</a>
-                </div>
+            <div style="flex: 1; min-width: 280px; background: linear-gradient(180deg, var(--brand-cyan) 0%, #007794 100%); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem; text-align: center;">
+                <div style="text-transform: uppercase; letter-spacing: 3px; font-weight: 700; opacity: 0.9; margin-bottom: 0.5rem;">The Launch</div>
+                <div style="font-family: 'Outfit'; font-size: 5rem; font-weight: 800; line-height: 1;">22</div>
+                <div style="font-family: 'Outfit'; font-size: 1.5rem; font-weight: 600; text-transform: uppercase;">Jan 2026</div>
+                <div style="margin-top: 2rem; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: 700;">FOUNDATIONAL EVENT</div>
             </div>
 
-            <div id="upcoming-events-container" style="display: flex; flex-direction: column; gap: 2.5rem;"></div>
-
-            <div id="past-events-list"></div>
+            <div style="flex: 2; min-width: 300px; padding: 3rem; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">NSF ACCESS Regional <span style="color: var(--brand-cyan);">AI Workshop</span></h3>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6;">
+                    This landmark workshop served as the official kickoff for the SoCal-AIRE community. 
+                    Bringing together over 100 regional leaders, we established the collaborative framework 
+                    to bridge local innovation with national NSF-supported resources.
+                </p>
+                <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                    <a href="https://www.isi.edu/special-events/socalai-2026/" target="_blank" class="primary-btn" style="padding: 12px 30px; background: var(--brand-cyan); box-shadow: none;">
+                        View Event Site <i class="fas fa-external-link-alt" style="margin-left: 10px; font-size: 0.8rem;"></i>
+                    </a>
+                    <span style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--brand-cyan); margin-right: 5px;"></i> USC Ginsburg Hall
+                    </span>
+                </div>
+            </div>
         </div>
-    </section>
+
+        <div style="text-align: center; position: relative;">
+            <hr style="border: none; border-top: 1px solid rgba(128,128,128,0.2);">
+            <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--bg-body); padding: 0 20px; color: var(--text-secondary); font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">
+                Current Timeline
+            </span>
+        </div>
+
+        <div id="upcoming-events-container" style="display: flex; flex-direction: column; gap: 2rem;"></div>
+        
+    </div>
+</section>
 
     <section class="partners-section">
         <h2 class="section-title fade-in-up">Our Partners</h2>
@@ -1142,41 +1155,62 @@
         </div>
     </footer>
 <script>
+    /**
+     * THEME SWITCHER
+     * Handles switching between Dark, Blue, and Light modes
+     */
     function setTheme(themeName) {
         document.documentElement.setAttribute('data-theme', themeName);
+        
+        // Update active button state
         document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+        
         const iconMap = { 'dark': 'fa-moon', 'blue': 'fa-water', 'light': 'fa-sun' };
         const activeIcon = iconMap[themeName];
         const btns = document.getElementsByClassName('theme-btn');
+        
         for (let btn of btns) {
             if (btn.innerHTML.includes(activeIcon)) {
                 btn.classList.add('active');
             }
         }
+        // Save preference
+        localStorage.setItem('socal-aire-theme', themeName);
     }
 
+    /**
+     * SCROLL ANIMATION OBSERVER
+     * Triggers the 'visible' class for fade-in-up animations
+     */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-
-    // EVENT DATA: USC is excluded here because we hardcoded it above as Foundational
+    /**
+     * EVENT RENDERER
+     * Manages the Foundational Launch and upcoming community events
+     */
     const eventsData = [
+        // Note: The USC Launch is often hard-coded in the HTML for SEO/Importance, 
+        // but can be managed here if needed.
         {
+            id: "uci-2026",
             title: "Inaugural AI in Science Symposium",
-            date: "2026-01-30",
+            date: "2026-01-30", 
             displayDay: "30",
             displayMonth: "JAN",
             location: "CALIT2 Auditorium, UC Irvine",
             time: "8:30 AM – 5:00 PM",
             tag: "HAPPENING TODAY",
-            description: "Showcasing interdisciplinary talks at the intersection of AI foundations and life sciences.",
+            description: "The inaugural symposium of the UCI AI in Science Institute (AISI), showcasing interdisciplinary talks on AI Foundations and Life Sciences.",
             link: "https://ai-science.uci.edu/events/aisi-symposium/",
             btnText: "View Event Details",
-            color: "var(--brand-orange)"
+            color: "var(--brand-orange)",
+            isFoundational: false
         }
     ];
 
@@ -1184,12 +1218,19 @@
         const upcomingContainer = document.getElementById('upcoming-events-container');
         const pastList = document.getElementById('past-events-list');
         
+        if (!upcomingContainer) return;
+
+        // Get today's date at midnight for comparison
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+
+        // Clear container before rendering
+        upcomingContainer.innerHTML = '';
 
         eventsData.forEach(event => {
             const eventDate = new Date(event.date + "T00:00:00");
             
+            // Check if it's today or in the future
             if (eventDate >= today) {
                 upcomingContainer.innerHTML += `
                     <div class="event-card fade-in-up visible" style="border-left: 5px solid ${event.color}; width: 100%;">
@@ -1198,27 +1239,54 @@
                             <span class="month">${event.displayMonth}</span>
                         </div>
                         <div class="event-content">
-                            <div class="event-tag" style="background: rgba(128,128,128,0.1); color: ${event.color}; font-weight: 800;">${event.tag}</div>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 10px;">${event.title}</h3>
-                            <div class="event-details" style="margin-bottom: 10px; color: var(--text-secondary);">
-                                <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                            <div class="event-tag" style="background: rgba(128,128,128,0.1); color: ${event.color}; font-weight: 800;">
+                                ${eventDate.getTime() === today.getTime() ? 'HAPPENING TODAY' : event.tag}
                             </div>
-                            <p style="color: var(--text-secondary); margin-bottom: 20px;">${event.description}</p>
-                            <a href="${event.link}" target="_blank" class="event-btn" style="border-color: ${event.color}; color: ${event.color};">${event.btnText}</a>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 10px;">${event.title}</h3>
+                            <div class="event-details" style="margin-bottom: 15px;">
+                                <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                                <span style="margin-left: 15px;"><i class="fas fa-clock"></i> ${event.time}</span>
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                                ${event.description}
+                            </p>
+                            <a href="${event.link}" target="_blank" class="event-btn" style="border-color: ${event.color}; color: ${event.color}; padding: 10px 25px; border-radius: 50px; font-weight: 600; border: 1px solid;">
+                                ${event.btnText}
+                            </a>
                         </div>
                     </div>
                 `;
             } else if (pastList) {
+                // Logic for automatically moving old events to a simple list
                 pastList.innerHTML += `
-                    <div class="past-event-item fade-in-up visible" style="margin-top: 2rem; padding: 1rem; border-top: 1px solid rgba(128,128,128,0.1);">
-                        <span style="color: var(--brand-orange); font-weight: bold;">${event.displayMonth} ${event.displayDay}:</span> ${event.title}
+                    <div class="past-event-item" style="padding: 1rem 0; border-top: 1px solid rgba(128,128,128,0.1); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: var(--text-secondary);">${event.displayMonth} ${event.displayDay}</strong> — ${event.title}
+                        </div>
+                        <a href="${event.link}" target="_blank" style="font-size: 0.8rem; color: var(--brand-cyan);">Recap <i class="fas fa-arrow-right"></i></a>
                     </div>
                 `;
             }
         });
+
+        // Re-observe newly added elements
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
     }
 
-    window.addEventListener('DOMContentLoaded', renderEvents);
+    /**
+     * INITIALIZATION
+     */
+    window.addEventListener('DOMContentLoaded', () => {
+        // Load saved theme
+        const savedTheme = localStorage.getItem('socal-aire-theme') || 'dark';
+        setTheme(savedTheme);
+
+        // Render dynamic events
+        renderEvents();
+        
+        // Observe static elements
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    });
 </script>
 </body>
 
