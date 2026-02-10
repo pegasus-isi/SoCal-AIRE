@@ -945,12 +945,10 @@
         /* ============================================================
    VIDEO SECTION STYLES
    ============================================================ */
-        /* Stacks player on top of the playlist */
-        /* 1. Main Container: Stack player on top of playlist */
         .video-container-main {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
             background: var(--bg-card);
             padding: 2rem;
             border-radius: 32px;
@@ -958,18 +956,16 @@
             backdrop-filter: blur(10px);
         }
 
-        /* 2. Player Wrapper Styles */
         .video-player-wrapper {
-            width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .glass-video-frame {
             position: relative;
             padding-bottom: 56.25%;
-            /* 16:9 Ratio */
+            /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
             border-radius: 20px;
@@ -986,229 +982,61 @@
             height: 100%;
         }
 
+        .video-info-card {
+            padding: 1rem 0.5rem;
+        }
+
         .video-info-card h3 {
             font-size: 1.8rem;
             margin: 10px 0;
             color: var(--text-primary);
         }
 
-        /* 3. Horizontal Playlist Container with Arrow Positioning */
-        .video-playlist {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 0 10px;
-        }
-
         .playlist-scroll {
             display: flex;
-            flex-direction: row;
-            /* Force Horizontal */
-            gap: 1.2rem;
-            overflow-x: hidden;
-            /* Hide scrollbar so arrows handle it */
-            scroll-behavior: smooth;
-            padding: 10px 0;
-            width: 100%;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
-        /* 4. Horizontal Playlist Items (Cards) */
+        /* Custom Scrollbar for Playlist */
+        .playlist-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .playlist-scroll::-webkit-scrollbar-thumb {
+            background: var(--brand-cyan);
+            border-radius: 10px;
+        }
+
         .playlist-item {
-            flex: 0 0 280px;
-            /* Width of each video card */
+            position: relative;
             display: flex;
-            flex-direction: column;
-            /* Image on top, text below */
-            gap: 10px;
-            padding: 12px;
-            background: rgba(128, 128, 128, 0.05);
+            gap: 12px;
+            padding: 10px;
             border-radius: 15px;
             cursor: pointer;
             transition: 0.3s;
             border: 1px solid transparent;
+            background: rgba(128, 128, 128, 0.05);
         }
 
         .playlist-item img {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
+            width: 100px;
+            border-radius: 8px;
             object-fit: cover;
-        }
-
-        .playlist-item.active {
-            background: rgba(0, 181, 226, 0.1);
-            border-color: var(--brand-cyan);
         }
 
         .playlist-item h4 {
-            font-size: 0.95rem;
-            line-height: 1.4;
-            margin: 5px 0;
-            /* Limit title to 2 lines */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
         }
 
-        /* 5. Scroll Arrows Styling */
-        .scroll-arrow {
-            background: var(--brand-cyan);
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            position: absolute;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            transition: 0.3s;
-        }
-
-        .scroll-arrow:hover {
-            transform: scale(1.1);
-            background: var(--brand-orange);
-        }
-
-        .arrow-left {
-            left: -20px;
-        }
-
-        .arrow-right {
-            right: -20px;
-        }
-
-        /* Hide arrows on mobile and enable native touch scroll */
-        @media (max-width: 768px) {
-            .scroll-arrow {
-                display: none;
-            }
-
-            .playlist-scroll {
-                overflow-x: auto;
-            }
-        }
-
-        /* Media Header & Pills */
-        
-/* The Blue Badge from the image */
-.media-badge-container {
-    margin-bottom: 1.5rem;
-}
-
-.media-badge {
-    background: var(--brand-cyan);
-    color: white;
-    padding: 10px 30px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    box-shadow: 0 0 20px rgba(0, 181, 226, 0.5); /* Adds the glow effect */
-}
-
-/* Subtitle Styling */
-.media-subtitle {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 1.5rem;
-}
-
-/* Force pills to be centered */
-.workshop-pills {
-    justify-content: center;
-    margin-top: 10px;
-}
-
-/* Ensure section title underline is centered (Overrides existing if necessary) */
-.media-header .section-title::after {
-    margin: 15px auto;
-}
-
-        .workshop-pills {
-            display: flex;
-            flex-wrap: wrap;
-            /* Allows pills to wrap to a new line if there are many */
-            gap: 12px;
-        }
-
-        .pill {
-            padding: 10px 22px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
+        .playlist-item span {
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .pill:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border-color: var(--brand-cyan);
-        }
-
-        .pill.active {
-            background: var(--brand-cyan);
-            color: white;
-            border-color: var(--brand-cyan);
-            box-shadow: 0 0 20px rgba(0, 181, 226, 0.3);
-        }
-
-        /* Horizontal Playlist Layout */
-        .video-container-main {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 32px;
-            border: 1px solid rgba(128, 128, 128, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .video-playlist-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .playlist-scroll {
-            display: flex;
-            flex-direction: row;
-            gap: 1.5rem;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            padding: 10px 0;
-            width: 100%;
-        }
-
-        .playlist-item {
-            flex: 0 0 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .playlist-item img {
-            width: 100%;
-            height: 150px;
-            border-radius: 12px;
-            object-fit: cover;
         }
 
         .playlist-item.active {
@@ -1216,112 +1044,35 @@
             border-color: var(--brand-cyan);
         }
 
-        /* Arrows */
-        .scroll-arrow {
-            background: var(--brand-cyan);
-            color: white;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
+        .playlist-item:hover:not(.active) {
+            background: rgba(128, 128, 128, 0.1);
+        }
+
+        .play-overlay {
             position: absolute;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            left: 45px;
+            top: 30px;
+            color: white;
+            opacity: 0.8;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
         }
 
-        .arrow-left {
-            left: -22px;
-        }
-
-        .arrow-right {
-            right: -22px;
-        }
-
-        @media (max-width: 768px) {
-            .scroll-arrow {
-                display: none;
+        @media (max-width: 992px) {
+            .video-container-main {
+                grid-template-columns: 1fr;
             }
 
             .playlist-scroll {
+                flex-direction: row;
                 overflow-x: auto;
+                max-height: none;
+            }
+
+            .playlist-item {
+                min-width: 250px;
             }
         }
-        .media-header {
-    display: flex;
-    flex-direction: column; /* Forces buttons UNDER the title */
-    align-items: center;    /* Centers the title and buttons */
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    width: 100%;
-}
-
-.media-controls {
-    display: flex;
-    flex-direction: column; /* Stacks pills and search bar */
-    align-items: center;
-    gap: 1.5rem;
-    width: 100%;
-}
-
-/* Container for Pills and Search inside the Video Section */
-.video-nav-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.workshop-pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-/* Styled specifically as buttons (pills) */
-.pill {
-    padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: 0.3s ease;
-}
-
-.pill.active {
-    background: var(--brand-cyan);
-    color: white;
-    border-color: var(--brand-cyan);
-}
-
-/* Search Bar styling inside the Video Nav */
-.search-wrapper {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    padding: 8px 18px;
-    min-width: 260px;
-}
-
-.search-wrapper input {
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    margin-left: 10px;
-    width: 100%;
-}
     </style>
 </head>
 
@@ -1342,10 +1093,9 @@
                 <button class="theme-btn" onclick="setTheme('light')" title="Light Mode"><i
                         class="fas fa-sun"></i></button>
             </div>
-            <a href="https://www.youtube.com/@SoCal-AIRE?sub_confirmation=1" target="_blank" title="YouTube Channel"
-                style="font-size: 1.2rem; color: var(--text-secondary); margin-right: 10px;">
-                <i class="fab fa-youtube"></i>
-            </a>
+            <a href="https://www.youtube.com/@SoCal-AIRE?sub_confirmation=1" target="_blank" title="YouTube Channel" style="font-size: 1.2rem; color: var(--text-secondary); margin-right: 10px;">
+        <i class="fab fa-youtube"></i>
+    </a>
             <a href="mailto:contact@socal-aire.org" class="cta-btn">Contact</a>
         </div>
     </nav>
@@ -1648,67 +1398,41 @@
                         A historical gathering that successfully connected over 100 regional researchers with national
                         infrastructure, establishing the <strong>SoCal-AIRE</strong> bedrock at USC Ginsburg Hall.
                     </p>
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <a href="https://www.isi.edu/special-events/socalai-2026/" target="_blank" class="primary-btn">
-                            View Full Recap <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
-                        </a>
-
-                        <a href="#media"
-                            onclick="switchWorkshop('PLv8R8m8-0m-v0vC0_v3vE_B1_v0vC0_v', document.querySelector('.pill'))"
-                            class="primary-btn"
-                            style="background: transparent; border: 1px solid var(--brand-cyan); color: var(--brand-cyan); box-shadow: none;">
-                            <i class="fas fa-play-circle" style="margin-right: 8px;"></i> You missed it? Rewatch
-                        </a>
-                    </div>
+                    <a href="https://www.isi.edu/special-events/socalai-2026/" target="_blank" class="primary-btn"
+                        style="width: fit-content;">
+                        View Full Recap <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                    </a>
                 </div>
             </div>
 
-            <div class="events-stack" style="max-width: 1100px; margin: 0 auto;">
-
-                <div id="upcoming-events-container" class="events-grid"></div>
-
-                <div class="past-events-section fade-in-up"
-                    style="margin-top: 5rem; border-top: 1px solid rgba(128, 128, 128, 0.1); padding-top: 3rem;">
-                    <h3
-                        style="font-family: 'Outfit'; font-size: 1.8rem; margin-bottom: 2rem; color: var(--text-primary);">
-                        <i class="fas fa-history" style="color: var(--brand-cyan); margin-right: 10px;"></i> Past
-                        Community Gatherings
-                    </h3>
-                    <div id="past-events-list" style="display: flex; flex-direction: column; gap: 1rem;">
-                    </div>
-                </div>
+            <div class="timeline-divider">
+                <span class="timeline-label">Upcoming Community Events</span>
             </div>
+
+            <div id="upcoming-events-container" class="events-grid"></div>
         </div>
     </section>
-
+   
     <section id="media" class="fade-in-up">
-    <h2 class="section-title">Event Archives</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2 class="section-title" style="margin: 0;">Event Archives</h2>
+        <select id="playlistExplorer" onchange="loadEventFolder(this.value)" style="padding: 10px; border-radius: 8px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--brand-cyan);">
+            <option value="NSF ACCESS Regional AI Workshop - SoCal Edition - 2026.json"> NSF ACCESS Regional AI Workshop - SoCal Edition - 2026 </option>
+        </select>
+    </div>
 
     <div class="video-container-main">
-        <div class="video-nav-controls">
-            <nav class="workshop-pills" id="workshopNav">
-                </nav>
-            
-            <div class="search-wrapper">
-                <i class="fas fa-search"></i>
-                <input type="text" id="videoSearch" placeholder="Search sessions..." onkeyup="filterVideos()">
-            </div>
-        </div>
-
         <div class="video-player-wrapper">
             <div class="glass-video-frame">
                 <iframe id="mainYouTubePlayer" src="" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="video-info-card">
                 <h3 id="videoTitle">Select a Session</h3>
-                <div id="videoDesc">Choose a workshop to begin.</div>
+                <p id="videoDesc">Choose a video from the list.</p>
             </div>
         </div>
-
-        <div class="video-playlist-container">
-            <button class="scroll-arrow arrow-left" onclick="scrollPlaylist(-300)"><i class="fas fa-chevron-left"></i></button>
+        <div class="video-playlist">
             <div class="playlist-scroll" id="youtube-playlist"></div>
-            <button class="scroll-arrow arrow-right" onclick="scrollPlaylist(300)"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </section>
@@ -1744,240 +1468,203 @@
         </div>
     </footer>
     <script>
-/**
- * THEME SWITCHER
- */
-function setTheme(themeName) {
-    document.documentElement.setAttribute('data-theme', themeName);
-    document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-    const iconMap = { 'dark': 'fa-moon', 'blue': 'fa-water', 'light': 'fa-sun' };
-    const activeIcon = iconMap[themeName];
-    const btns = document.getElementsByClassName('theme-btn');
-    for (let btn of btns) {
-        if (btn.innerHTML.includes(activeIcon)) btn.classList.add('active');
-    }
-    localStorage.setItem('socal-aire-theme', themeName);
-}
+        /**
+         * THEME SWITCHER
+         * Handles switching between Dark, Blue, and Light modes
+         */
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
 
-/**
- * SCROLL ANIMATION OBSERVER
- */
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.1 });
+            // Update active button state
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
 
-/**
- * EVENT DATA & RENDERER
- */
-const eventsData = [
-    {
-        id: "uci-2026",
-        title: "Inaugural AI in Science Symposium",
-        date: "2026-01-30",
-        displayDay: "30",
-        displayMonth: "JAN",
-        location: "CALIT2 Auditorium, UC Irvine",
-        time: "8:30 AM – 5:00 PM",
-        tag: "COMMUNITY EVENT",
-        description: "The inaugural symposium of the UCI AI in Science Institute (AISI), showcasing interdisciplinary talks on AI Foundations and Life Sciences.",
-        link: "https://ai-science.uci.edu/events/aisi-symposium/",
-        btnText: "View Event Details",
-        color: "var(--brand-orange)",
-        playlistId: "" // Links to YouTube Archive
-    }
-];
-function renderEvents() {
-    const upcomingContainer = document.getElementById('upcoming-events-container');
-    const pastList = document.getElementById('past-events-list');
-    const pastSection = document.querySelector('.past-events-section');
+            const iconMap = { 'dark': 'fa-moon', 'blue': 'fa-water', 'light': 'fa-sun' };
+            const activeIcon = iconMap[themeName];
+            const btns = document.getElementsByClassName('theme-btn');
 
-    if (!upcomingContainer) return;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    upcomingContainer.innerHTML = '';
-    if (pastList) pastList.innerHTML = '';
-    
-    let pastCount = 0;
-
-    eventsData.forEach(event => {
-        const eventDate = new Date(event.date + "T00:00:00");
-        
-        // 1. PLAYLIST CHECK: Only generate HTML if playlistId actually has a value
-        const hasPlaylist = event.playlistId && event.playlistId.trim() !== "";
-        
-        const rewatchBtn = hasPlaylist ? `
-            <a href="#media" onclick="switchWorkshop('${event.playlistId}', document.querySelector('.pill'))" 
-               class="event-btn" style="border-color: var(--brand-cyan); color: var(--brand-cyan); margin-left: 10px;">
-                <i class="fas fa-play-circle"></i> Rewatch
-            </a>` : ''; // Shows nothing if no playlist
-
-        if (eventDate >= today) {
-            upcomingContainer.innerHTML += `
-            <div class="event-card fade-in-up visible" style="border-left: 5px solid ${event.color}; width: 100%;">
-                <div class="event-date" style="background: ${event.color}; min-width: 180px;">
-                    <span class="day">${event.displayDay}</span>
-                    <span class="month">${event.displayMonth}</span>
-                </div>
-                <div class="event-content">
-                    <div class="event-tag" style="background: rgba(128,128,128,0.1); color: ${event.color}; font-weight: 800;">
-                        ${eventDate.getTime() === today.getTime() ? 'HAPPENING TODAY' : event.tag}
-                    </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">${event.title}</h3>
-                    <div class="event-details" style="margin-bottom: 15px;">
-                        <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
-                        <span style="margin-left: 15px;"><i class="fas fa-clock"></i> ${event.time}</span>
-                    </div>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">${event.description}</p>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <a href="${event.link}" target="_blank" class="event-btn" style="border-color: ${event.color}; color: ${event.color};">${event.btnText}</a>
-                        ${rewatchBtn} 
-                    </div>
-                </div>
-            </div>`;
-        } else if (pastList) {
-            pastCount++;
-            pastList.innerHTML += `
-            <div class="past-event-row">
-                <div class="past-date-box">
-                    <span style="display: block; font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase;">${event.displayMonth}</span>
-                    <span style="display: block; font-size: 1.4rem; font-weight: 800; color: var(--text-primary);">${event.displayDay}</span>
-                </div>
-                <div class="past-info">
-                    <h4 style="margin: 0; font-size: 1.1rem;">${event.title}</h4>
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i class="fas fa-location-dot"></i> ${event.location}</span>
-                </div>
-                <div class="past-action">
-                    ${hasPlaylist ? `<a href="#media" onclick="switchWorkshop('${event.playlistId}', document.querySelector('.pill'))" class="event-btn" style="padding: 8px 16px; font-size: 0.8rem; border-color: var(--brand-cyan); color: var(--brand-cyan); margin-right: 10px;"><i class="fas fa-play"></i> REWATCH</a>` : ''}
-                    <a href="${event.link}" target="_blank" class="event-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 8px; border: 1px solid rgba(128,128,128, 0.2); color: var(--text-secondary);">VIEW RECAP</a>
-                </div>
-            </div>`;
+            for (let btn of btns) {
+                if (btn.innerHTML.includes(activeIcon)) {
+                    btn.classList.add('active');
+                }
+            }
+            // Save preference
+            localStorage.setItem('socal-aire-theme', themeName);
         }
-    });
 
-    // 2. EMPTY SECTION CHECK: Hide the entire "Past Events" area if no past events exist
-    if (pastSection) {
-        pastSection.style.display = (pastCount > 0) ? 'block' : 'none';
-    }
+        /**
+         * SCROLL ANIMATION OBSERVER
+         * Triggers the 'visible' class for fade-in-up animations
+         */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-}
+        /**
+         * EVENT RENDERER
+         * Manages the Foundational Launch and upcoming community events
+         */
+        const eventsData = [
+            // Note: The USC Launch is often hard-coded in the HTML for SEO/Importance, 
+            // but can be managed here if needed.
+            {
+                id: "uci-2026",
+                title: "Inaugural AI in Science Symposium",
+                date: "2026-01-30",
+                displayDay: "30",
+                displayMonth: "JAN",
+                location: "CALIT2 Auditorium, UC Irvine",
+                time: "8:30 AM – 5:00 PM",
+                tag: "HAPPENING TODAY",
+                description: "The inaugural symposium of the UCI AI in Science Institute (AISI), showcasing interdisciplinary talks on AI Foundations and Life Sciences.",
+                link: "https://ai-science.uci.edu/events/aisi-symposium/",
+                btnText: "View Event Details",
+                color: "var(--brand-orange)",
+                isFoundational: false
+            }
+        ];
+
+        function renderEvents() {
+            const upcomingContainer = document.getElementById('upcoming-events-container');
+            const pastList = document.getElementById('past-events-list');
+
+            if (!upcomingContainer) return;
+
+            // Get today's date at midnight for comparison
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Clear container before rendering
+            upcomingContainer.innerHTML = '';
+
+            eventsData.forEach(event => {
+                const eventDate = new Date(event.date + "T00:00:00");
+
+                // Check if it's today or in the future
+                if (eventDate >= today) {
+                    upcomingContainer.innerHTML += `
+                    <div class="event-card fade-in-up visible" style="border-left: 5px solid ${event.color}; width: 100%;">
+                        <div class="event-date" style="background: ${event.color}; min-width: 180px;">
+                            <span class="day">${event.displayDay}</span>
+                            <span class="month">${event.displayMonth}</span>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-tag" style="background: rgba(128,128,128,0.1); color: ${event.color}; font-weight: 800;">
+                                ${eventDate.getTime() === today.getTime() ? 'HAPPENING TODAY' : event.tag}
+                            </div>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 10px;">${event.title}</h3>
+                            <div class="event-details" style="margin-bottom: 15px;">
+                                <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                                <span style="margin-left: 15px;"><i class="fas fa-clock"></i> ${event.time}</span>
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                                ${event.description}
+                            </p>
+                            <a href="${event.link}" target="_blank" class="event-btn" style="border-color: ${event.color}; color: ${event.color}; padding: 10px 25px; border-radius: 50px; font-weight: 600; border: 1px solid;">
+                                ${event.btnText}
+                            </a>
+                        </div>
+                    </div>
+                `;
+                } else if (pastList) {
+                    // Logic for automatically moving old events to a simple list
+                    pastList.innerHTML += `
+                    <div class="past-event-item" style="padding: 1rem 0; border-top: 1px solid rgba(128,128,128,0.1); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: var(--text-secondary);">${event.displayMonth} ${event.displayDay}</strong> — ${event.title}
+                        </div>
+                        <a href="${event.link}" target="_blank" style="font-size: 0.8rem; color: var(--brand-cyan);">Recap <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                }
+            });
+
+            // Re-observe newly added elements
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        }
+
+        /**
+         * INITIALIZATION
+         */
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('socal-aire-theme') || 'dark';
+            setTheme(savedTheme);
+
+            // Render dynamic events
+            renderEvents();
+
+            // Observe static elements
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        });
+        /**
 /**
- * MEDIA & VIDEO PLAYER LOGIC
+ * DYNAMIC FOLDER LOADER
  */
-const WORKSHOP_CONFIG = 'event_videos/workshops.json';
-
-/**
- * Generates the Pill Buttons for Previous Events
- */
-async function initMediaSection() {
-    const nav = document.getElementById('workshopNav');
-    try {
-        const response = await fetch('event_videos/workshops.json');
-        const workshops = await response.json();
-
-        // Create a <button> for each workshop
-        nav.innerHTML = workshops.map((ws, index) => `
-            <button class="pill ${index === 0 ? 'active' : ''}" 
-                    onclick="switchWorkshop('${ws.playlistId}', this)">
-                ${ws.workshopTitle}
-            </button>
-        `).join('');
-
-        loadVideos(workshops[0].playlistId);
-    } catch (e) {
-        console.error("Error loading event list:", e);
-    }
-}
-
-/**
- * Filter sessions by search text
- */
-/**
- * Filters the current playlist based on the search input
- */
-function filterVideos() {
-    const query = document.getElementById('videoSearch').value.toLowerCase();
-    const items = document.querySelectorAll('.playlist-item');
-
-    items.forEach(item => {
-        const title = item.querySelector('h4').innerText.toLowerCase();
-        // Hide items that don't match the search
-        item.style.display = title.includes(query) ? "flex" : "none";
-    });
-}
-
-/**
- * Updated Switcher to clear search when changing event category
- */
-function switchWorkshop(id, btn) {
-    // Clear search bar
-    document.getElementById('videoSearch').value = "";
+async function loadEventFolder(fileName) {
+    if (!fileName) return;
     
-    // UI Update for pills
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    
-    // Load new content
-    loadVideos(id);
-}
-async function loadVideos(playlistId) {
+    const folderPath = 'event_videos/'; 
     const container = document.getElementById('youtube-playlist');
-    const rss = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}`;
-    container.innerHTML = "<p style='padding: 20px;'>Loading playlist...</p>";
+    const player = document.getElementById('mainYouTubePlayer');
+    
     try {
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.items && data.items.length > 0) {
-            const first = data.items[0];
-            updatePlayer(first.link.split('v=')[1], first.title, first.description);
-            container.innerHTML = data.items.map((video, i) => {
-                const id = video.link.split('v=')[1];
-                return `
-                    <div class="playlist-item ${i === 0 ? 'active' : ''}" onclick="updatePlayer('${id}', '${video.title.replace(/'/g, "\\'")}', '${cleanDesc(video.description).replace(/'/g, "\\'")}', this)">
-                        <img src="https://img.youtube.com/vi/${id}/mqdefault.jpg">
-                        <div class="item-meta"><h4>${video.title}</h4><span>${video.pubDate.split(' ')[0]}</span></div>
-                    </div>`;
-            }).join('');
-        }
-    } catch (e) { container.innerHTML = "<p>Failed to load video feed.</p>"; }
+        // Fetching the local JSON file
+        const response = await fetch(folderPath + fileName);
+        if (!response.ok) throw new Error("File not found");
+        
+        const videoData = await response.json();
+
+        // Load first video
+        const first = videoData[0];
+        const firstId = first["Video url"].split('v=')[1];
+        player.src = `https://www.youtube-nocookie.com/embed/${firstId}?rel=0`;
+        document.getElementById('videoTitle').innerText = first.Title;
+        document.getElementById('videoDesc').innerText = first.Description || "";
+
+        // Build list
+        container.innerHTML = videoData.map((video, index) => {
+            const vidId = video["Video url"].split('v=')[1];
+            return `
+                <div class="playlist-item ${index === 0 ? 'active' : ''}" 
+                     onclick="switchVideo('${vidId}', \`${video.Title.replace(/'/g, "\\'")}\`, \`${video.Description.replace(/'/g, "\\'").replace(/\n/g, "<br>")}\`, this)">
+                    <img src="${video["Thumbnail url"]}" alt="Thumbnail">
+                    <div class="item-meta">
+                        <h4>${video.Title}</h4>
+                        <span>${video["Duration in timestamp"]}</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error("Load Error:", error);
+        container.innerHTML = `<p style="color:orange; padding:20px;">Browser blocked local file access. <br> Please use <b>Live Server</b> in VS Code.</p>`;
+    }
 }
 
-function updatePlayer(id, title, desc, element) {
-    document.getElementById('mainYouTubePlayer').src = `https://www.youtube-nocookie.com/embed/${id}?rel=0`;
+function switchVideo(id, title, desc, element) {
+    document.getElementById('mainYouTubePlayer').src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
     document.getElementById('videoTitle').innerText = title;
     document.getElementById('videoDesc').innerHTML = desc;
-    if (element) {
-        document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('active'));
-        element.classList.add('active');
-        element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
+    document.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
 }
 
-
-
-function scrollPlaylist(amt) {
-    document.getElementById('youtube-playlist').scrollBy({ left: amt, behavior: 'smooth' });
-}
-
-function cleanDesc(html) {
-    let t = document.createElement("div"); t.innerHTML = html;
-    let txt = t.textContent || t.innerText || "";
-    return txt.length > 300 ? txt.substring(0, 300) + "..." : txt;
-}
-
-// Global Initialization
+// SAFE INITIALIZATION
 window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('socal-aire-theme') || 'dark';
-    setTheme(savedTheme);
-    renderEvents();
-    initMediaSection();
+    const selector = document.getElementById('playlistExplorer');
+    // This 'if' prevents the "property 'value' is null" error
+    if (selector) {
+        loadEventFolder(selector.value);
+    } else {
+        console.warn("Could not find playlistExplorer dropdown in HTML.");
+    }
 });
-    </script>
+</script>
 </body>
 
 </html>
