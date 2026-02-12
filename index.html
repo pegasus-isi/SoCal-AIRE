@@ -557,9 +557,10 @@
        8. PARTNERS SECTION
        ============================================================ */
 
+        
         .logo-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* This creates 3 columns */
             gap: 2rem;
             margin-top: 2rem;
             align-items: center;
@@ -907,7 +908,13 @@
 
         @media (max-width: 1024px) {
             .logo-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-grid {
+                grid-template-columns: 1fr; /* 1 column on mobile */
             }
         }
 
@@ -1862,6 +1869,12 @@
             </div>
             <div class="logo-card fade-in-up">
                 <img src="images/nsf.png" alt="NSF" class="partner-logo">
+            </div>
+            <div class="logo-card fade-in-up">
+                    <img src="images/scitech-logo-vertical.png" alt="NSF" class="partner-logo">
+            </div>
+            <div class="logo-card fade-in-up">
+                    <img src="images/NAIRR.png" alt="NSF" class="partner-logo">
             </div>
         </div>
     </section>
